@@ -1,7 +1,16 @@
 <?php
 
+function confirm($result){
+    global $connection;
+
+    if(!$result) {
+        die("Query Failed: " . mysqli_error($connection));
+    }
+};
+
 function insert_categories(){
     global $connection;
+
     if(isset($_POST['submit'])){
         $cat_title = $_POST['cat_title'];
 

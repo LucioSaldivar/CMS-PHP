@@ -11,9 +11,7 @@
                 $cat_id = $row['cat_id'];
                 $cat_title = $row['cat_title'];
                 ?>
-
                 <input class="form-control" name="cat_title" type="text" value="<?php if(isset($cat_title)){echo $cat_title; } ?>">
-
             <?php } }?>
         <?php  //Update Query
         if (isset($_POST['update_category'])) {
@@ -26,14 +24,7 @@
                 die("Query Failed: " . mysqli_error($connection));
             }
         }
-
-
-
         ?>
-
-
-
-
     </div>
     <div class="form_group">
         <input class="btn btn-primary" type="submit" name="update_category" value="Update Category">
