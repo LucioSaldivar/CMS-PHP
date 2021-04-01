@@ -18,9 +18,11 @@
                     <?php
                         if(isset($_GET['source'])){
                             $source = $_GET['source'];
+                        } else {
+                            $source = '';
                         }
 
-                        switch (){
+                        switch ($source ){
                             case '34':
                                 echo "nice";
                                 break;
@@ -31,7 +33,7 @@
                                 echo "nice 200";
                                 break;
                             default:
-
+                                include "includes/view_all_post.php";
                                 break;
                         }
 
