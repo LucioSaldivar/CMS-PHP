@@ -1,9 +1,9 @@
 <?php
-if(isset($_GET['p_id'])){
+if (isset($_GET['p_id'])) {
     $the_post_id = $_GET['p_id'];
 }
 
-$query = "SELECT * FROM posts WHERE post_id = $the_post_id";
+$query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
 $select_posts_by_id = mysqli_query($connection, $query);
 
 while ($row = mysqli_fetch_assoc($select_posts_by_id)) {
@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_assoc($select_posts_by_id)) {
     $post_date = $row['post_date'];
 }
 
-if(isset($_POST['update_post'])){
+if (isset($_POST['update_post'])) {
     $post_author = $_POST['post_author'];
     $post_title = $_POST['post_title'];
     $post_category_id = $_POST['post_category'];
@@ -30,6 +30,14 @@ if(isset($_POST['update_post'])){
     $post_tags = $_POST['post_tags'];
 
     move_uploaded_file($post_image_temp, "../images/$post_image");
+    if (empty($post_image)) {
+        $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
+        $select_image = mysqli_query($connection, $query);
+
+        while ($row = mysqli_fetch_array($select_image)) {
+            $post_image = $row['post_image'];
+        }
+    }
 
     $query = "UPDATE posts SET ";
     $query .= "post_title = '{$post_title}', ";
@@ -42,18 +50,13 @@ if(isset($_POST['update_post'])){
     $query .= "post_image = '{$post_image}' ";
     $query .= "WHERE post_id = {$the_post_id} ";
 
-    if(empty($post_image)){
-        $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
-        $select_image = mysqli_query($connection, $query);
-
-        while ($row = mysqli_fetch_array($select_image)){
-            $post_image = $row['post_image'];
-        }
-    }
-
-    $update_post = mysqli_query($connection,$query);
+    $update_post = mysqli_query($connection, $query);
 
     confirm($update_post);
+
+    echo "<p class='bg-success'>Post Updated. 
+<a href='../posts.php?p_id={$the_post_id}'>View Post</a>
+ or <a href='post.php'>Edit More Posts</a></p>";
 }
 ?>
 
@@ -66,17 +69,17 @@ if(isset($_POST['update_post'])){
     <div class="form-group">
         <select name="post_category" id="post_category">
             <?php
-                $query = "SELECT * FROM category";
-                $select_categories = mysqli_query($connection, $query);
+            $query = "SELECT * FROM category";
+            $select_categories = mysqli_query($connection, $query);
 
-                confirm($select_categories);
+            confirm($select_categories);
 
-                while ($row = mysqli_fetch_assoc($select_categories)) {
-                    $cat_id = $row['cat_id'];
-                    $cat_title = $row['cat_title'];
+            while ($row = mysqli_fetch_assoc($select_categories)) {
+                $cat_id = $row['cat_id'];
+                $cat_title = $row['cat_title'];
 
-                    echo "<option value='{$cat_id}'>{$cat_title}</option>";
-                }
+                echo "<option value='{$cat_id}'>{$cat_title}</option>";
+            }
             ?>
         </select>
     </div>
@@ -87,8 +90,17 @@ if(isset($_POST['update_post'])){
     </div>
 
     <div class="form-group">
-        <label for="post_status">Post Status</label>
-        <input value="<?php echo $post_status; ?>" type="text" class="form-control" name="post_status">
+        <select name="post_status" id="">
+            <option value="<?php echo $post_status; ?>"><?php echo $post_status; ?></option>
+            <?php
+            if ($post_status == 'published') {
+                echo "<option value='draft'>Draft</option>";
+            } else {
+                echo "<option value='published'>Published</option>";
+            }
+
+            ?>
+        </select>
     </div>
 
     <div class="form-group">
@@ -103,7 +115,7 @@ if(isset($_POST['update_post'])){
 
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea  class="form-control" name="post_content" id="" cols="30" rows="10">
+        <textarea class="form-control" name="post_content" id="body" cols="30" rows="10">
             <?php echo $post_content; ?>"
         </textarea>
     </div>
