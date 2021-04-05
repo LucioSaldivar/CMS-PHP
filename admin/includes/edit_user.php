@@ -36,7 +36,7 @@ $user_password = $_POST['user_password'];
 $query = "UPDATE users SET ";
 $query .= "user_firstname = '{$user_firstname}', ";
 $query .= "user_lastname = '{$user_lastname}', ";
-$query .= "user_role = {$user_role}, ";
+$query .= "user_role = '{$user_role}', ";
 $query .= "username = '{$username}', ";
 $query .= "user_email = '{$user_email}', ";
 $query .= "user_password = '{$user_password}' ";

@@ -1,7 +1,7 @@
 <?php
-$db['db_host'] = 'docker-db';
-$db['db_user'] = 'root';
-$db['db_pass'] = 'root';
+$db['db_host'] = 'localhost';
+$db['db_user'] = 'manuel';
+$db['db_pass'] = 'Ls156491;';
 $db['db_name'] = 'cms';
 
 foreach ($db as $key => $value){
