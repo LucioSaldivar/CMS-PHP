@@ -23,9 +23,14 @@ if(isset($_POST['login'])) {
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
+        $db_user_hash = $row['hash'];
     }
 
-    if($username === $db_username && $password === $db_user_password) {
+    $passwordCheck = password_verify($password,$db_user_hash);
+
+
+
+    if($username === $db_username && $passwordCheck) {
 
         if(session_status() == PHP_SESSION_NONE) session_start();
 

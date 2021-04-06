@@ -1,4 +1,6 @@
 <?php include "includes/admin_header.php" ?>
+<?php var_dump($_SESSION); exit;  ?>
+
 <?php
 if(isset($_SESSION['username'])){
     $username = $_SESSION['username'];
@@ -49,6 +51,8 @@ if (isset($_POST['edit_user'])) {
     confirm($edit_user_query);
 }
 ?>
+
+
     <div id="wrapper">
     <!-- Navigation -->
     <?php include "includes/admin_navigation.php" ?>

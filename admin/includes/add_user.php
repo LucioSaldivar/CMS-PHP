@@ -4,20 +4,14 @@ if(isset($_POST['create_user'])){
     $user_lastname = $_POST['user_lastname'];
     $user_role = $_POST['user_role'];
 
-//    $post_image = $_FILES['image']['name'];
-//    $post_image_temp = $_FILES['image']['tmp_name'];
-
     $username = $_POST['username'];
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
-//    $post_date = date('d-m-y');
+    $hashed_user_password = password_hash($user_password, PASSWORD_DEFAULT);
 
-
-//    move_uploaded_file($post_image_temp, "../images/$post_image");
-//
-    $query = "INSERT INTO users(user_firstname,user_lastname,user_role,username,user_email,user_password) ";
+    $query = "INSERT INTO users(user_firstname,user_lastname,user_role,username,user_email,user_password,hash) ";
     $query .= "VALUES('{$user_firstname}','{$user_lastname}','{$user_role}','{$username}',
-    '{$user_email}','{$user_password}') ";
+    '{$user_email}','{$user_password}','{$hashed_user_password}') ";
 
     $create_user_query = mysqli_query($connection, $query);
 
@@ -39,8 +33,6 @@ if(isset($_POST['create_user'])){
         <input type="text" class="form-control" name="user_lastname">
     </div>
 
-
-
     <div class="form-group">
         <select name="user_role" id="user_role">
             <option value="subscriber">Select Options</option>
@@ -48,13 +40,6 @@ if(isset($_POST['create_user'])){
             <option value="subscriber">Subscriber</option>
         </select>
     </div>
-
-
-
-<!--    <div class="form-group">-->
-<!--        <label for="post_image">Post Image</label>-->
-<!--        <input type="file" name="image">-->
-<!--    </div>-->
 
     <div class="form-group">
         <label for="post_tags">Username</label>
