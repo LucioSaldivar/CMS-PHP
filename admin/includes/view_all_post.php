@@ -89,7 +89,7 @@ if (isset($_POST['checkBoxArray'])) {
             <th>View Post</th>
             <th>Edit</th>
             <th>Delete</th>
-            <th>Views</th>
+            <th>Viewsday</th>
         </tr>
         </thead>
         <tbody>
